@@ -42,24 +42,35 @@ const inventorySlice = createSlice({
         },
         updateProduct(state, action: PayloadAction<Product>) {
             const updatedProduct = action.payload;
-            state.products = state.products.map((p) =>
-                p.id === updatedProduct.id ? updatedProduct : p
-            );
+            const index = state.products.findIndex((p) => p.id === updatedProduct.id);
+            if (index === -1) {
+                console.error(`Product with id ${updatedProduct.id} not found.`);
+                return;
+            }
+            state.products[index] = updatedProduct;
             state.stats = calculateStats(state.products);
         },
         deleteProduct(state, action: PayloadAction<number>) {
             const productId = action.payload;
-            state.products = state.products.filter((p) => p.id !== productId);
+            const filteredProducts = state.products.filter((p) => p.id !== productId);
+            if (filteredProducts.length === state.products.length) {
+                console.error(`Product with id ${productId} not found.`);
+                return;
+            }
+            state.products = filteredProducts;
             state.stats = calculateStats(state.products);
         },
         disableProduct(state, action: PayloadAction<number>) {
             const productId = action.payload;
-            state.products = state.products.map((p) =>
-                p.id === productId ? { ...p, disabled: true } : p
-            );
+            const index = state.products.findIndex((p) => p.id === productId);
+            if (index === -1) {
+                console.error(`Product with id ${productId} not found.`);
+                return;
+            }
+            state.products[index] = { ...state.products[index], disabled: true };
             state.stats = calculateStats(state.products);
         },
-    }
+    },
 });
 
 function calculateStats(products: Product[]): Stats {

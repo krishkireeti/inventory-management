@@ -8,11 +8,17 @@ import {
     Paper,
     Button,
 } from "@mui/material";
+import CreateIcon from '@mui/icons-material/Create';
+import DeleteIcon from '@mui/icons-material/Delete';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditProductModal from "./EditProductModal";
-import { useDispatch } from "react-redux";
-import { updateProduct, deleteProduct, disableProduct } from "../redux/slices/inventorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    updateProduct,
+    deleteProduct,
+    disableProduct,
+} from "../redux/slices/inventorySlice";
 import { ProductTableProps, Product } from "./product.types";
-
 
 function ProductTable({ products, isAdmin }: ProductTableProps) {
     const dispatch = useDispatch();
@@ -23,31 +29,41 @@ function ProductTable({ products, isAdmin }: ProductTableProps) {
     };
 
     const handleDelete = (id: number) => {
-        dispatch(deleteProduct(id));
+        if (window.confirm("Are you sure you want to delete this product?")) {
+            dispatch(deleteProduct(id));
+        }
     };
 
     const handleDisable = (id: number) => {
         dispatch(disableProduct(id));
     };
 
+    const handleSave = (updatedProduct: Product) => {
+        dispatch(updateProduct(updatedProduct));
+        setEditProduct(null); // Close the modal after saving
+    };
+
     return (
         <TableContainer component={Paper}>
             <Table>
-                <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Category</TableCell>
-                    <TableCell>Price</TableCell>
-                    <TableCell>Quantity</TableCell>
-                    {isAdmin && <TableCell>Actions</TableCell>}
-                </TableRow>
+                <thead>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Category</TableCell>
+                        <TableCell>Price</TableCell>
+                        <TableCell>Quantity</TableCell>
+                        {isAdmin && <TableCell>Actions</TableCell>}
+                    </TableRow>
+                </thead>
                 <TableBody>
-                    {products.map(product => (
+                    {products.map((product) => (
                         <TableRow
                             key={product.id}
                             style={{
                                 opacity: product.disabled ? 0.5 : 1,
                                 textDecoration: product.disabled ? "line-through" : "none",
-                            }}>
+                            }}
+                        >
                             <TableCell>{product.name}</TableCell>
                             <TableCell>{product.category}</TableCell>
                             <TableCell>{product.price}</TableCell>
@@ -55,26 +71,23 @@ function ProductTable({ products, isAdmin }: ProductTableProps) {
                             {isAdmin && (
                                 <TableCell>
                                     <Button
-                                        variant="outlined"
                                         color="primary"
                                         onClick={() => handleEdit(product)}
                                         disabled={product.disabled}
                                     >
-                                        Edit
+                                        <CreateIcon />
                                     </Button>
                                     <Button
-                                        variant="contained"
                                         color="error"
                                         onClick={() => handleDelete(product.id)}
                                     >
-                                        Delete
+                                        <DeleteIcon />
                                     </Button>
                                     <Button
-                                        variant="contained"
                                         color="secondary"
                                         onClick={() => handleDisable(product.id)}
                                     >
-                                        Disable
+                                        <VisibilityIcon />
                                     </Button>
                                 </TableCell>
                             )}
@@ -86,7 +99,7 @@ function ProductTable({ products, isAdmin }: ProductTableProps) {
                 <EditProductModal
                     product={editProduct}
                     onClose={() => setEditProduct(null)}
-                    onSave={(updatedProduct) => dispatch(updateProduct(updatedProduct))}
+                    onSave={handleSave}
                 />
             )}
         </TableContainer>
