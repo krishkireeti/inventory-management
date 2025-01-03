@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import ProductTable from "./ProductTable";
 import StatsWidgets from "./StatsWidgets";
 import { useSelector, useDispatch } from "react-redux";

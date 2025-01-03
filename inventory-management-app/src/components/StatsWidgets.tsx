@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent, Typography, Stack } from "@mui/material";
-
-
+import { StatsWidgetsProps } from "./product.types";
 
 function StatsWidgets({ stats }: StatsWidgetsProps) {
     const { totalProducts, totalValue, outOfStock, categories } = stats;

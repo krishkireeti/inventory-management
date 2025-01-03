@@ -1,4 +1,4 @@
-interface Product {
+export interface Product {
     id: number;
     name: string;
     value: number;
@@ -8,24 +8,24 @@ interface Product {
     disabled?: boolean;
 }
 
-interface ProductTableProps {
+export interface ProductTableProps {
     products: Product[];
     isAdmin: boolean;
 }
 
-interface EditProductModalProps {
+export interface EditProductModalProps {
     product: Product;
     onClose: () => void;
     onSave: (product: Product) => void;
 }
 
-interface Stats {
+export interface Stats {
     totalProducts: number;
     totalValue: number;
     outOfStock: number;
     categories: number;
 }
 
-interface StatsWidgetsProps {
+export interface StatsWidgetsProps {
     stats: Stats;
 }

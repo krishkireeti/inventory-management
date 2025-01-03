@@ -7,7 +7,7 @@ import {
     TextField,
     Button,
 } from "@mui/material";
-
+import { EditProductModalProps } from "./product.types";
 
 function EditProductModal({ product, onClose, onSave }: EditProductModalProps) {
     const [editedProduct, setEditedProduct] = useState({ ...product });

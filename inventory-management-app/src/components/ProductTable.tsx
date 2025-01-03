@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     Table,
-    TableHead,
     TableRow,
     TableCell,
     TableBody,
@@ -12,7 +11,7 @@ import {
 import EditProductModal from "./EditProductModal";
 import { useDispatch } from "react-redux";
 import { updateProduct, deleteProduct, disableProduct } from "../redux/slices/inventorySlice";
-
+import { ProductTableProps, Product } from "./product.types";
 
 
 function ProductTable({ products, isAdmin }: ProductTableProps) {
