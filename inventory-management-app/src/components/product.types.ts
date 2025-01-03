@@ -1,8 +1,8 @@
 export interface Product {
     id: number;
     name: string;
-    value: number;
-    price: number;
+    value: string;
+    price: string;
     category: string;
     quantity: number;
     disabled?: boolean;

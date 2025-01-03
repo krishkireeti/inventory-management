@@ -18,7 +18,7 @@ function EditProductModal({ product, onClose, onSave }: EditProductModalProps) {
     };
 
     const handleSave = () => {
-        if (editedProduct.price < 0 || editedProduct.quantity < 0) {
+        if (parseFloat(editedProduct.price) < 0 || editedProduct.quantity < 0) {
             alert("Price and quantity must be non-negative.");
             return;
         }

@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface Product {
     id: number;
     name: string;
-    value: number;
-    price: number;
+    value: string;
+    price: string;
     category: string;
     quantity: number;
     disabled?: boolean;
@@ -75,7 +75,16 @@ const inventorySlice = createSlice({
 
 function calculateStats(products: Product[]): Stats {
     const totalProducts = products.length;
-    const totalValue = products.reduce((sum, p) => sum + p.price * p.quantity, 0);
+    const totalValue = products.reduce((sum, p) => {
+        const numericValue = typeof p.value === "string"
+            ? parseFloat(p.value.replace('$', ''))
+            : p.value;
+
+        return isNaN(numericValue) ? sum : sum + numericValue;
+    }, 0);
+
+    console.log("Total Value:", totalValue);
+
     const outOfStock = products.filter((p) => p.quantity === 0).length;
     const categories = new Set(products.map((p) => p.category)).size;
 

@@ -6,7 +6,7 @@ function StatsWidgets({ stats }: StatsWidgetsProps) {
 
     const statsData = [
         { label: "Total Products", value: totalProducts },
-        { label: "Total Store Value", value: `$${totalValue.toFixed(2)}` },
+        { label: "Total Store Value", value: `$${totalValue}` },
         { label: "Out of Stock", value: outOfStock },
         { label: "Categories", value: categories },
     ];
