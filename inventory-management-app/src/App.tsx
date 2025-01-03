@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdminView from "./components/AdminView";
 import UserView from "./components/UserView";
 import { Button, Container, AppBar, Toolbar, Typography } from "@mui/material";

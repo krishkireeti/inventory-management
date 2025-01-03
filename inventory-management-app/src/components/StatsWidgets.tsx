@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardContent, Typography, Stack } from "@mui/material";
 import { StatsWidgetsProps } from "./product.types";
 
